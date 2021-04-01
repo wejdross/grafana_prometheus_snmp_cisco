@@ -17,7 +17,7 @@
   "gnetId": 11169,
   "graphTooltip": 1,
   "id": 11,
-  "iteration": 1617274673937,
+  "iteration": 1617281873637,
   "links": [],
   "panels": [
     {
@@ -651,7 +651,8 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "expr": "( irate(ifHCOutOctets{job=\"snmp\"}[5m]) + on(ifIndex) group_left(ifName) ifName{} ) + on(ifIndex) group_left(ifAlias) ifAlias{}",
+          "expr": "irate(ifHCOutOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
+          "hide": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ifName}} ({{ifAlias}})",
@@ -716,7 +717,7 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "expr": "( irate(ifHCInOctets{job=\"snmp\"}[5m]) + on(ifIndex) group_left(ifName) ifName{} ) + on(ifIndex) group_left(ifAlias) ifAlias{}",
+          "expr": "irate(ifHCInOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ifName}} ({{ifAlias}})",
@@ -783,7 +784,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "( irate(ifHCOutOctets{job=\"snmp\"}[5m]) + on(ifIndex) group_left(ifName) ifName{} ) + on(ifIndex) group_left(ifAlias) ifAlias{}",
+          "expr": "irate(ifHCOutOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -791,7 +792,7 @@
           "refId": "A"
         },
         {
-          "expr": "( irate(ifHCInOctets{job=\"snmp\"}[5m]) + on(ifIndex) group_left(ifName) ifName{} ) + on(ifIndex) group_left(ifAlias) ifAlias{}",
+          "expr": "irate(ifHCInOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "In: {{ifName}} ({{ifAlias}})",
@@ -840,7 +841,7 @@
       }
     }
   ],
-  "refresh": "10s",
+  "refresh": false,
   "schemaVersion": 26,
   "style": "dark",
   "tags": [
@@ -885,6 +886,33 @@
         "name": "Filters",
         "skipUrlSync": false,
         "type": "adhoc"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "selected": false,
+          "text": "172.90.0.1",
+          "value": "172.90.0.1"
+        },
+        "datasource": "Prometheus",
+        "definition": "label_values(ifName,instance)",
+        "error": null,
+        "hide": 0,
+        "includeAll": false,
+        "label": "instance",
+        "multi": false,
+        "name": "instance",
+        "options": [],
+        "query": "label_values(ifName,instance)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
       }
     ]
   },
@@ -909,5 +937,5 @@
   "timezone": "",
   "title": "SNMP Stats",
   "uid": "7qKD6I1Wk",
-  "version": 5
+  "version": 10
 }
