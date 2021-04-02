@@ -17,7 +17,7 @@
   "gnetId": 11169,
   "graphTooltip": 1,
   "id": 11,
-  "iteration": 1617285588460,
+  "iteration": 1617349146639,
   "links": [],
   "panels": [
     {
@@ -657,8 +657,9 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "expr": "irate(ifHCOutOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
+          "expr": "sort_desc(irate(ifHCOutOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"})",
           "hide": false,
+          "instant": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ifName}} ({{ifAlias}})",
@@ -723,7 +724,8 @@
       "pluginVersion": "7.3.6",
       "targets": [
         {
-          "expr": "irate(ifHCInOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
+          "expr": "sort_desc(irate(ifHCInOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"})",
+          "instant": true,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "{{ifName}} ({{ifAlias}})",
@@ -790,7 +792,7 @@
       "steppedLine": false,
       "targets": [
         {
-          "expr": "irate(ifHCOutOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
+          "expr": "irate(ifHCOutOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\",  ifAlias!=\"not in use (20191007)\"}",
           "instant": false,
           "interval": "",
           "intervalFactor": 1,
@@ -798,7 +800,8 @@
           "refId": "A"
         },
         {
-          "expr": "irate(ifHCInOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\"}",
+          "expr": "irate(ifHCInOctets{job=\"$Job\", instance=\"$instance\"}[5m]) + on(ifIndex) group_left(ifName) ifName{instance=\"$instance\"}  + on(ifIndex) group_left(ifAlias) ifAlias{instance=\"$instance\",  ifAlias!=\"not in use (20191007)\"}",
+          "instant": false,
           "interval": "",
           "intervalFactor": 1,
           "legendFormat": "In: {{ifName}} ({{ifAlias}})",
@@ -923,7 +926,7 @@
     ]
   },
   "time": {
-    "from": "now-5m",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -943,5 +946,5 @@
   "timezone": "",
   "title": "SNMP Stats",
   "uid": "7qKD6I1Wk",
-  "version": 18
+  "version": 21
 }
